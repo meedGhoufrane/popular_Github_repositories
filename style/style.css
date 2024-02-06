@@ -95,3 +95,11 @@ body {
     background-color: #45a049;
   }
   
+  /* style.css */
+#searchInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px; /* adjust width as needed */
+  margin-bottom: 20px;
+}
