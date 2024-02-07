@@ -1,88 +1,83 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const repoList = document.getElementById('repoList');
-    const paginationContainer = document.getElementById('pagination');
-    const currentPageSpan = document.getElementById('currentPage');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    let page = 1;
-    const itemsPerPage = 10; 
-    let totalPages = 0;
-  
-    const fetchRepos = async (page, perPage) => {
+  var repoList = document.getElementById('repoList');
+  var paginationContainer = document.getElementById('pagination');
+  var currentPageSpan = document.getElementById('currentPage');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  let page = 1;
+  var itemsPerPage = 10; 
+  let totalPages = 0;
+
+  var fetchRepos = async (page, perPage) => {
       try {
-        const response = await fetch(`https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&page=${page}&per_page=${perPage}`);
-        const data = await response.json();
-        return data.items;
+          var response = await fetch(`https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&page=${page}&per_page=${perPage}`);
+          var data = await response.json();
+          return data.items;
       } catch (error) {
-        console.error('Error fetching repositories:', error);
+          console.error('Error fetching repositories:', error);
       }
-    };
-  
-    const renderRepo = (repo) => {
-        const li = document.createElement('li');
-        li.classList.add('repo-item'); 
+  };
+
+  var renderRepo = (repo) => {
+      var li = document.createElement('li');
+      li.classList.add('repo-item');
       
-        const repoContainer = document.createElement('div');
-        repoContainer.classList.add('repo-container'); 
+      var repoContainer = document.createElement('div');
+      repoContainer.classList.add('repo-container');
       
-        const imageDiv = document.createElement('div');
-        imageDiv.classList.add('image-container'); 
-        imageDiv.innerHTML = `<img src="${repo.owner.avatar_url}" alt="${repo.owner.login}'s avatar">`;
+      var imageDiv = document.createElement('div');
+      imageDiv.classList.add('image-container');
+      imageDiv.innerHTML = `<img src="${repo.owner.avatar_url}" alt="${repo.owner.login}'s avatar">`;
       
-        const detailsDiv = document.createElement('div');
-        detailsDiv.classList.add('details-container'); 
-        detailsDiv.innerHTML = `
+      var detailsDiv = document.createElement('div');
+      detailsDiv.classList.add('details-container');
+      detailsDiv.innerHTML = `
           <h3>${repo.name}</h3>
           <p>${repo.description}</p>
           <p>Stars: ${repo.stargazers_count}</p>
           <p>Forks: ${repo.forks_count}</p>
           <p>Owner: ${repo.owner.login}</p>
-        `;
+      `;
       
-        repoContainer.appendChild(imageDiv);
-        repoContainer.appendChild(detailsDiv);
+      repoContainer.appendChild(imageDiv);
+      repoContainer.appendChild(detailsDiv);
       
-        li.appendChild(repoContainer);
-        repoList.appendChild(li);
-      };
-      
-  
-    const renderPagination = () => {
+      li.appendChild(repoContainer);
+      repoList.appendChild(li);
+  };
+
+  var renderPagination = () => {
       currentPageSpan.textContent = `Page ${page} of ${totalPages}`;
-    };
-  
-    const nextPage = async () => {
+  };
+
+  var nextPage = async () => {
       if (page < totalPages) {
-        page++;
-        await renderRepos();
+          page++;
+          await renderRepos();
       }
-    };
-  
-    const prevPage = async () => {
+  };
+
+  var prevPage = async () => {
       if (page > 1) {
-        page--;
-        await renderRepos();
+          page--;
+          await renderRepos();
       }
-    };
-  
-    const renderRepos = async () => {
+  };
+
+  var renderRepos = async () => {
       repoList.innerHTML = ''; 
-      const repos = await fetchRepos(page, itemsPerPage);
+      var repos = await fetchRepos(page, itemsPerPage);
       repos.forEach(renderRepo);
       renderPagination();
-    };
-  
- 
-    const totalCountResponse = await fetch(`https://api.github.com/search/repositories?q=stars:>1`);
-    const totalCountData = await totalCountResponse.json();
-    const totalCount = totalCountData.total_count;
-    totalPages = Math.ceil(totalCount / itemsPerPage);
-  
-    
-    await renderRepos();
-  
-   
-    nextBtn.addEventListener('click', nextPage);
-    prevBtn.addEventListener('click', prevPage);
-  });
-  
+  };
+
+  var totalCountResponse = await fetch(`https://api.github.com/search/repositories?q=stars:>1`);
+  var totalCountData = await totalCountResponse.json();
+  var totalCount = totalCountData.total_count;
+  totalPages = Math.ceil(totalCount / itemsPerPage);
+
+  await renderRepos();
+
+  nextBtn.addEventListener('click', nextPage);
+  prevBtn.addEventListener('click', prevPage);
+});
