@@ -5,8 +5,8 @@ function handleSearchInput() {
 
 async function searchRepositories(searchTerm) {
     let apiUrl;
-    let page = 1; // Reset page number for search
-    const itemsPerPage = 10; // Reset items per page for search
+    let page = 1;
+    const itemsPerPage = 10; 
 
     if (searchTerm !== '') {
         apiUrl = `https://api.github.com/search/repositories?q=${searchTerm}&sort=stars&order=desc&page=${page}&per_page=${itemsPerPage}`;
@@ -25,7 +25,7 @@ async function searchRepositories(searchTerm) {
 
 function renderRepositories(repos) {
     const repoList = document.getElementById('repoList');
-    repoList.innerHTML = ''; // Clear previous search results
+    repoList.innerHTML = ''; 
 
     repos.forEach(repo => {
         const li = document.createElement('li');
