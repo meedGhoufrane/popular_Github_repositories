@@ -10,6 +10,9 @@ async function searchRepositories(searchTerm) {
     
     
 
+
+    
+
     if (searchTerm !== '') {
         apiUrl = `https://api.github.com/search/repositories?q=${searchTerm}&sort=stars&order=desc&page=${page}&per_page=${itemsPerPage}`;
     } else {
