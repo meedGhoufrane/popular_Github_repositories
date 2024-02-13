@@ -8,11 +8,6 @@ async function searchRepositories(searchTerm) {
     let page = 1;
     const itemsPerPage = 10;
     
-    
-
-
-    
-
     if (searchTerm !== '') {
         apiUrl = `https://api.github.com/search/repositories?q=${searchTerm}&sort=stars&order=desc&page=${page}&per_page=${itemsPerPage}`;
     } else {
