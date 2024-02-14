@@ -24,6 +24,9 @@ async function searchRepositories(searchTerm) {
     }
 }
 
+
+
+
 function renderRepositories(repos) {
     const repoList = document.getElementById('repoList');
     repoList.innerHTML = ''; 
