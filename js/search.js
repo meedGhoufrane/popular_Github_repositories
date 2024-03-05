@@ -13,7 +13,7 @@ async function searchRepositories(searchTerm) {
     } else {
         apiUrl = `https://api.github.com/search/repositories?q=stars:>1&sort=stars&order=desc&page=${page}&per_page=${itemsPerPage}`;
     }
-    
+     
 
     try {
         const response = await fetch(apiUrl);
